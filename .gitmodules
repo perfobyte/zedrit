@@ -1,0 +1,3 @@
+[submodule "src/lib/scriptast"]
+	path = src/lib/scriptast
+	url = https://github.com/perfobyte/scriptast.git
