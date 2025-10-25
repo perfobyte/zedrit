@@ -1,1 +1,2 @@
-export * from '../lib/strucdom/esm/vendor/stylom/lib/1.js';
+import s from '../lib/stylom/lib/1.mjs';
+export default s;

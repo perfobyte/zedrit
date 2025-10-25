@@ -1,3 +1,9 @@
 [submodule "src/lib/scriptast"]
 	path = src/lib/scriptast
 	url = https://github.com/perfobyte/scriptast.git
+[submodule "src/lib/strucdom"]
+	path = src/lib/strucdom
+	url = https://github.com/perfobyte/strucdom.git
+[submodule "src/lib/stylom"]
+	path = src/lib/stylom
+	url = https://github.com/perfobyte/stylom.git

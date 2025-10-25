@@ -1,1 +1,1 @@
-export * from '../lib/scriptast/src/src/index.js';
+export * from '../lib/scriptast/src/src/1.js';

@@ -1,1 +1,1 @@
-export * from "../lib/strucdom/esm/index.js";
+export * from "../lib/strucdom/src/lib/1.js";
