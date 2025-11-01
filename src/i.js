@@ -1,77 +1,66 @@
-import {stylom, scriptast, strucdom} from './import/i.js';
-import {to_html_string, html_node_reduce} from './f/i.js';
 
-(
-    () => {
-        var
-            l = console.log,
-            document = (
-                strucdom.parse(
-                    `
-                    <html>
-                        <head/>
-                        <body>
-                            <paste from="<hello>world</hello>"></paste>
-                            <p class="x">Hello <b>World</b></p>
+import {
+    parse,
+    create_document,
+    Node,
+    UnclosedHtmlTags as unclosed,
+    SpaceCharacters as space,
+    QuotesCharacters as quotes,
+    ELEMENT_NODE,
+} from './import/strucdom.js';
 
-                            <paste from="<hello>world</hello>"></paste>
-                        </body>
-                    </html>
-                    `
-                )
-            )
+import { html_compile, html_compress } from './f/i.js';
+import {readFileSync, writeFileSync} from 'fs';
+import {join, dirname} from 'path';
 
-            // stack = [...document.childNodes],
-            // compresed = to_html_string(stack)
-        ;
-        
 
-        
 
-        html_node_reduce(
-            [document],
-            (r,node,i,a) => {
-                var 
-                    i = 0,
-                    child = null,
-                    l = 0,
-                    childNodes = null,
-                    tagName = "",
-                    fromAttr = null
-                ;
-                if (node.tagName === 'body' && (childNodes=node.childNodes)) {
-                    l = childNodes.length;
+(() => {
 
-                    for (; i < l; i++) {
-                        child = childNodes[i];
+    var
+        locals = {
+            mode: 0,
+            lang: 'en',
 
-                        if (child.tagName === 'paste') {
-                            console.dir(childNodes);
-
-                            (fromAttr = child.attrs.find(a => a.name === 'from') || null)
-                            &&
-                            (
-                                childNodes[i] = (
-                                    r
-                                    .parseFragment(fromAttr.value)
-                                    .childNodes[0]
-                                )
-                            );
-                        }
-                    }
-                }
-                return r;
+            is_prod: (t) => {
+                return t.mode === 1;
             },
-            {
-                cwd: "",
-                parseFragment:strucdom.parseFragment,
-            }
-        );
+        },
 
-        return console.log(to_html_string([...document.childNodes]));
-    }
-)()
+        file_path = "/home/dencelman/gt/space/app/perfobyte/code/h/.html",
 
+        cwd = dirname(file_path),
 
+        html = readFileSync(file_path).toString(),
 
+        document = create_document([]),
 
+        api = {
+            read: readFileSync,
+
+            join,
+            dirname,
+            
+            Nodes:Array,
+            Node,
+            unclosed,
+            quotes,
+            space,
+        },
+
+        result_code = (
+            parse(
+                html, document,
+                0, html.length,
+                unclosed, space, quotes,
+                Node, Array,
+            )
+        )
+    ;
+        
+    html_compile(document, cwd, locals, api, html_compile);
+    html_compress(document, html_compress);
+    
+    writeFileSync("dist.html",document.outer_html(unclosed))
+
+})();
