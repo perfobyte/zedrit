@@ -1,1 +1,1 @@
-import * from './f/i.js';
+export * from './f/i.js';
