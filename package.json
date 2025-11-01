@@ -1,6 +1,6 @@
 {
-  "name": "zedrit",
-  "version": "1.0.0",
+  "name": "@perfobyte/zedrit",
+  "version": "1.0.1",
   "description": "A language that makes your web app truly native — without kludges or workarounds.",
   "homepage": "https://github.com/perfobyte/zedrit#readme",
   "bugs": {
@@ -17,10 +17,23 @@
     "url": "https://perfobyte.com"
   },
   "type": "module",
-  "main": "1.js",
-  "scripts": {
-    
+  "main": "./src/1.js",
+  "scripts": {},
+  "files": [
+    "./src/1.js",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "sideEffects": false,
+  "publishConfig": { "access": "public" },
+  "exports": {
+    ".": {
+      "import": "./src/1.js",
+      "require": "./src/1.js"
+    }
   },
+  "module": "./src/1.js",
   "keywords": [
     "language",
     "web",
